@@ -16,7 +16,8 @@ def dealfinder():
         # Return the data as a JSON object
         return jsonify({
                 "status": status,
-                "data": data
+                "data": data,
+                "request_data": req_data
             })
         
 if __name__ == '__main__':
