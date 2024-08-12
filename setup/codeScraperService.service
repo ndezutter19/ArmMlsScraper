@@ -1,0 +1,9 @@
+[Unit]
+Description=Phoenix Code Scraper service.
+
+[Service]
+ExecStart=/path/to/script
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

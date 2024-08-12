@@ -1,0 +1,8 @@
+[Unit]
+Description=Runs the PheonixCodeScraper file once every n (7) days
+
+[Timer]
+OnCalendar=*/7 *-*-* *:*:*
+
+[Install]
+WantedBy=timers.target

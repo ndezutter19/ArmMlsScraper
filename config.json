@@ -1,0 +1,34 @@
+{
+    "Scraping Constants": {
+        "Phoenix Code Scraper": {
+            "IsRecent": 6,
+            "Url": "https://nsdonline.phoenix.gov"
+        },
+        "Maricopa Parcel Scraper": {
+            "Url": "https://mcassessor.maricopa.gov/mcs/?q=",
+            "Property Attributes": [
+                "lot size",
+                "high school district",
+                "elementary school district",
+                "local jurisdiction",
+                "subdivision"
+            ],
+            "Owner Attributes": [
+                "mailing address",
+                "sale date",
+                "sale price"
+            ],
+            "Valuation Attributes": [
+                "tax year",
+                "full cash value",
+                "description",
+                "property use code",
+                "pu description"
+            ],
+            "Additional Prop Attributes": [
+                "construction year",
+                "living area"
+            ]
+        }
+    }
+}
