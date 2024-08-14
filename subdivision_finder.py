@@ -4,10 +4,17 @@ from boto3.dynamodb.conditions import Attr
 import re
 from concurrent.futures import ThreadPoolExecutor
 import time
+from pyairtable import Api
 
 # Load AWS credentials from environment variables
 aws_access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
 aws_secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+
+# Airtable config
+airtable_api_key = os.getenv('AIRTABLE_API_KEY')
+airtable_base_id = os.getenv('AIRTABLE_BASE_ID')
+
+airtable_table_name = "Deals Table"
 
 # Connect to DynamoDB
 dynamodb = boto3.resource(
@@ -75,6 +82,24 @@ clean_patterns = [
     (re.compile(r'[^A-Z\s]'), ''),
     (re.compile(r'\s+'), ' ')
 ]
+
+# Function to send best deals to Airtable
+def send_to_airtable(best_deals):
+    api = Api(airtable_api_key)
+    table = api.table(airtable_base_id, airtable_table_name)
+    
+    for deal in best_deals:
+        subdivision, house, price_per_sqft, avg_price_per_sqft = deal
+        table.create({
+            'Listing ID': house.get('listing_id', 'N/A'),
+            'Subdivision': subdivision,
+            'Address': house.get('address', 'N/A'),
+            'Price': house.get('price', 'N/A'),
+            'Sqft': house.get('sqft', 'N/A'),
+            'Price per Sqft': f"${price_per_sqft:.2f}",
+            'Delta': f"${price_per_sqft - avg_price_per_sqft:.2f}"
+        })
+
 
 # Optimized function to clean subdivision names
 def clean_subdivision_name(subdivision):
@@ -304,6 +329,7 @@ def find_best_deals():
     # Sort the best deals by price per square foot
     best_deals = sorted(best_deals, key=lambda x: x[2])[:50]  # Get top 50 best deals
     best_deals = [deal for deal in best_deals if deal[1].get('price') and float(deal[1].get('price').replace('$', '').replace(',', '')) >= min_price]
+    send_to_airtable(best_deals)
 
     print(f"\n--- Top 50 Best Deals (Below Average Price per Sqft) ---")
     for subdivision, house, price_per_sqft, avg_price_per_sqft in best_deals:
