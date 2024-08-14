@@ -105,6 +105,8 @@ all_data_closed = []
 # Fetch cookies using Selenium
 def fetch_cookies():
     # Set up the Firefox driver without headless mode
+    os.system('Xvfb :99 -screen 0 1920x1080x24 &')
+    os.environ['DISPLAY'] = ':99'
     firefox_options = Options()
     service = Service()
     driver = webdriver.Firefox(service=service, options=firefox_options)
