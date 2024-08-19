@@ -239,7 +239,7 @@ def element_in_airtable(table: Table, template, form, **kwargs):
     
     return resp_id
 
-# 
+
 def check_case_updated(table: Table, resp, **kwargs):
     r_keys = list(resp['fields'].keys())
     for key, value in kwargs.items():
