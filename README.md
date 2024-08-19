@@ -8,6 +8,6 @@
 3. Run lines in shell to start service on timer (THIS IS UNTESTED):
 ~~~
 sudo systemctl daemon-reload
-sudo systemctl enable codeScraperTimer.timer
-sudo systemctl start codeScraperTimer.timer
+sudo systemctl enable codeScraper.timer
+sudo systemctl start codeScraper.timer
 ~~~
