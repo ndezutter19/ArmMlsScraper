@@ -276,15 +276,8 @@ def run_threads(noThreads, file, file_lock):
 
 global dynamodb, listing_table
 
-access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
-aws_secret_access_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
-aws_region = 'us-east-2'
-
-dynamodb = boto3.resource('dynamodb')
-listing_table = dynamodb.Table('HouseListings')
-
-
-with open('data/PhxScrape.json') as f:
-    file_lock = threading.Lock()
-    run_threads(4, f, file_lock)
+def run(fileName):
+    with open(f'{fileName}') as f:
+        file_lock = threading.Lock()
+        run_threads(4, f, file_lock)
     

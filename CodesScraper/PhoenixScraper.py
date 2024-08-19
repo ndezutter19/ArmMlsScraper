@@ -1,6 +1,7 @@
 import concurrent.futures
 import MaricopaParcel as mp
 import PhoenixCodesv2 as pc
+import util.AirtableHelper as at
 import threading
 import util.AddressHelper as AddressHelper
 from tqdm import tqdm
@@ -47,6 +48,7 @@ def run():
     end_time = time.time()
     delta_time = end_time - start_time
     print(f"Altogether took: {delta_time}s")
+    outputToAirtable()
     
 def write_out(result: dict):
     with open(filename, 'a') as write_file:
@@ -63,6 +65,9 @@ def scrape_address(property: dict):
         result['parcel data'] = parcel_result
         
         write_out(result)
+        
+def outputToAirtable():
+    at.run(filename)
     
 example = {'APN': '123-16-047', 'FIPS Code': '4013', 'County Name': 'Maricopa County', 'Property Address': '4034 E Pecan Rd', 'City': 'Phoenix', 'State': 'AZ', 'ZIP Code': '85040', 'Owner Name(s) Formatted': 'Neal & Regina Ruggie', 'Mailing Address': '4034 E Pecan Rd', 'Mailing City': 'Phoenix', 'Mailing State': 'AZ', 'Mailing ZIP Code': '85040', 'Subdivision': 'Knoell Garden Groves Unit 6', 'Detailed Property Type': 'Single Family Residential'}
 
