@@ -2,7 +2,9 @@
 Description=Phoenix Code Scraper service.
 
 [Service]
-ExecStart=/ArmMlsScraper/CodeScraper/PhoenixScraper.py
+Type=simple
+ExecStart=/ArmMlsScraper/mlsVenv/bin/python /ArmMlsScraper/CodeScraper/PhoenixScraper.py
+Environment="PATH=/ArmMlsScraper/mlsVenv/bin"
 Restart=always
 
 [Install]
