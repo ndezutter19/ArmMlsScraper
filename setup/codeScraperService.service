@@ -2,7 +2,7 @@
 Description=Phoenix Code Scraper service.
 
 [Service]
-ExecStart=/path/to/script
+ExecStart=/ArmMlsScraper/CodeScraper/PhoenixScraper.py
 Restart=always
 
 [Install]
